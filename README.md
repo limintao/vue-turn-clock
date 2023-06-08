@@ -1,18 +1,39 @@
-# Vue 3 + TypeScript + Vite
+# vue-turn-clock  [![npm](https://img.shields.io/npm/v/vue-turn-clock.svg)](https://www.npmjs.com/package/vue-turn-clock) [![npm](https://img.shields.io/npm/dt/vue-turn-clock.svg)](https://www.npmjs.com/package/vue-turn-clock)
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+这是一个简单的翻页倒计时组件，也可以是展示当前时间！
 
-## Recommended IDE Setup
+### 安装
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+With NPM:
+```
+npm install vue-turn-clock
+```
+With Yarn:
+```
+yarn add vue-turn-clock
+```
+With PNPM:
+```
+pnpm add vue-turn-clock
+```
 
-## Type Support For `.vue` Imports in TS
+### 使用
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+```vue
+import TurnClock from 'vue-turn-clock';
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+<TurnClock @over="timeOverEvent" endTime="2023-06-10" />
+```
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### 参数配置
+| 名称 | 类型 | 默认 | 说明 |
+| -- | -- | -- | -- |
+| endTime | Date/Number/String | -- | 需要倒计时的时间，可以是Date对象，也可以是时间戳，亦可是一个可被转换的时间字符串 |
+| formatter | String | YYYY-MM-DD HH:mm:ss | 当仅显示日期格式时，可限制显示的日期格式 |
+| units | String[] | [':', ':', ':', ''] | 要给每个时间层级后面添加的字符 |
+| theme | combine/separate/text | combine | 要展示的样式，`combine` :每个层级的数字合并显示，`separate` :每个层级的数字单独显示，`text` :当做纯文本格式显示
+
+### 事件
+| 事件名 | 说明 | 类型 |
+| -- | -- | -- |
+| over | 倒计时时间走完时触发 | Function |
