@@ -1,0 +1,160 @@
+.count-clock-container {
+  display: inline-flex;
+  align-items: center;
+  font-family: initial;
+}
+
+.count-down-view {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+}
+
+.count-down-text {
+  font-size: 14px;
+  color: rgb(35, 45, 55);
+
+  + .count-clock-time-unit {
+    font-size: inherit;
+    line-height: 1;
+    padding: 0 1px;
+  }
+}
+
+.count-clock-time-unit {
+  padding: 0 5px;
+  white-space: nowrap;
+  font-size: large;
+  color: rgb(35, 45, 55);
+}
+
+.count-item-view {
+  position: relative;
+  min-width: 40px;
+  height: 50px;
+  color: rgb(255, 255, 255);
+
+  &::before,
+  &::after {
+    content: '';
+    top: 50%;
+    z-index: 5;
+    width: 2px;
+    height: 10%;
+    display: inline-block;
+    position: absolute;
+    border-radius: 2px;
+    transform: translateY(-50%);
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(
+            180deg,
+            #171717 0%,
+            #ffffff 41%,
+            #ffffff 62%,
+            #171717 100%
+    );
+  }
+
+  &::before {
+    left: 4px;
+  }
+
+  &::after {
+    right: 4px;
+  }
+
+  & + .count-item-view {
+    margin-left: 3px;
+  }
+
+  &.single {
+    min-width: 30px;
+  }
+
+  .count-clock {
+    &-current,
+    &-next {
+      width: 100%;
+      height: 100%;
+      line-height: 50px;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    &-up,
+    &-down {
+      left: 0;
+      right: 0;
+      height: 50%;
+      position: absolute;
+      overflow: hidden;
+      padding: 0 6px;
+      z-index: 1;
+      background-color: rgb(35, 45, 55);
+      animation-duration: 0.4s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: both;
+      backface-visibility: hidden;
+    }
+
+    &-up {
+      top: 0;
+      border-radius: 10px 10px 0 0;
+    }
+
+    &-down {
+      bottom: 0;
+      line-height: 0;
+      border-radius: 0 0 10px 10px;
+    }
+
+    &-current .count-clock-up {
+      z-index: 3;
+      transform-origin: 50% 100%;
+    }
+
+    &-next .count-clock-down {
+      z-index: 2;
+      transform-origin: 50% 0;
+    }
+
+    &-halving-line {
+      left: 0;
+      top: 50%;
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      z-index: 3;
+      transform: translateY(-50%);
+      background-color: rgb(19, 25, 32);
+    }
+  }
+
+  &.animation {
+    .count-clock-current .count-clock-up {
+      animation-name: currentAnimate;
+    }
+    .count-clock-next .count-clock-down {
+      animation-name: nextAnimate;
+    }
+  }
+}
+
+@keyframes currentAnimate {
+  0% {
+    transform: perspective(100px) rotateX(0deg);
+  }
+  100% {
+    transform: perspective(100px) rotateX(-180deg);
+  }
+}
+
+@keyframes nextAnimate {
+  0% {
+    transform: perspective(100px) rotateX(180deg);
+  }
+  100% {
+    transform: perspective(100px) rotateX(0deg);
+  }
+}
