@@ -1,16 +1,26 @@
 {
   "name": "vue-turn-clock",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "li min tao<https://github.com/limintao>",
   "license": "MIT",
-  "type": "module",
-  "main": "./dist/vue-turn-clock.js",
-  "types": "./dist/index.d.ts",
-  "files": ["dist", "example"],
-  "workspaces": [
-    "packages/*"
-  ],
+  "type": "commonjs",
+  "main": "./lib/index.umd.js",
+  "module": "./lib/index.es.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.es.js",
+      "require": "./lib/index.umd.js",
+      "types": "./lib/index.d.ts"
+    },
+    "./style.css": {
+      "import": "./lib/style.css",
+      "require": "./lib/style.css"
+    }
+  },
+  "files": ["lib", "example"],
+  "workspaces": ["packages/*"],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -27,6 +37,7 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0",
+    "vite-plugin-libcss": "^1.0.6",
     "vue-tsc": "^1.4.2"
   }
 }
