@@ -6,7 +6,7 @@
  * @FilePath: \vue-turn-clock\packages\index.ts
  * @Description: 由limit创建！
  */
-import {withInstall} from './utils/install';
+import { withInstall } from './utils/install';
 import CountClock from './count-clock/countClock';
 
 export const TurnClock = withInstall(CountClock);

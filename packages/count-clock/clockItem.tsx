@@ -44,14 +44,14 @@ export default defineComponent({
             class="count-clock-up"
             onAnimationend={onAnimateEnd}
           >
-            {prevNumber.value}
+            { prevNumber.value }
           </div>
-          <div class="count-clock-down">{prevNumber.value}</div>
+          <div class="count-clock-down">{ prevNumber.value }</div>
         </div>
         <div class="count-clock-halving-line"></div>
         <div class="count-clock-next">
-          <div class="count-clock-up">{current.value}</div>
-          <div class="count-clock-down">{current.value}</div>
+          <div class="count-clock-up">{ current.value }</div>
+          <div class="count-clock-down">{ current.value }</div>
         </div>
       </div>
     );

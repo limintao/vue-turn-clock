@@ -16,11 +16,11 @@ export type TimeStackDesc = {
 };
 
 /**
- ** 将传入的时间戳转化为几天几时几分几秒
- * @param diff Number 要转换的时间戳，单位毫秒
+ ** 将传入的时间计算出距离当前时间转化为几天几时几分几秒
+ * @param target DateParams 要计算的目标时间
  * @returns TimeStackDesc 转换后的对象
  */
-export const getTimeCountDown = (target?: DateParams, level: number = 4) => {
+export const getTimeCountDown = (target?: DateParams) => {
   const timeStack = {} as TimeStackDesc;
   const targetTime = +new Date(target ?? Date.now());
   const currentTime = +new Date();
@@ -36,9 +36,9 @@ export const getTimeCountDown = (target?: DateParams, level: number = 4) => {
   }
   timeStack.diff = diff;
   timeStack.day = String(Math.floor(diff / 86400)).padStart(2, '0');
-  if (level >= 4) diff %= 86400;
+  diff %= 86400;
   timeStack.hour = String(Math.floor(diff / 3600)).padStart(2, '0');
-  if (level >= 3) diff %= 3600;
+  diff %= 3600;
   timeStack.min = String(Math.floor(diff / 60)).padStart(2, '0');
   timeStack.second = String(Math.floor(diff % 60)).padStart(2, '0');
   return timeStack;

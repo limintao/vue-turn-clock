@@ -20,7 +20,7 @@ export default defineComponent({
     },
   },
   emits: {
-    over: null,
+    over: () => null,
   },
   setup(props, { emit }) {
     const { endTime, units, theme, formatter } = toRefs(props);
@@ -50,8 +50,7 @@ export default defineComponent({
     const play = () => {
       clearInterval(timer.value);
       timer.value = window.setInterval(() => {
-        if (theme.value === 'text')
-          newTimeFormat.value = formatDate(formatter?.value);
+        if (theme.value === 'text' && !props.endTime) newTimeFormat.value = formatDate(formatter?.value);
         else {
           const timeResult = getTimeCountDown(endTime?.value);
           const timeKeys = ['second', 'min', 'hour', 'day'] as Array<
@@ -60,10 +59,8 @@ export default defineComponent({
           const arr: Array<string> = [];
           units.value.map((_key, index) => {
             const reverseIndex = units.value.length - (index + 1);
-            if (theme.value === 'combine')
-              return arr.push(timeResult[timeKeys[reverseIndex]] as string);
-            else
-              return arr.push(
+            if (theme.value === 'combine') return arr.push(timeResult[timeKeys[reverseIndex]] as string);
+            return arr.push(
                 ...(timeResult[timeKeys[reverseIndex]] as string).split('')
               );
           });
@@ -86,30 +83,26 @@ export default defineComponent({
           <div class="count-down-view">
             {timeArr.value.map((time, index) => (
               <>
-                {time}
                 {theme.value !== 'text' ? (
                   <ClockItem
                     current={time}
                     single={theme.value === 'separate'}
                   />
                 ) : (
-                  <div
-                    class="count-down-text"
-                    v-else
-                  >
-                    {time}
+                  <div class="count-down-text">
+                    { time }
                   </div>
                 )}
                 {hasTimeUnit(index) && getTimeUnit(index) && (
                   <div class="count-clock-time-unit">
-                    <span>{getTimeUnit(index)}</span>
+                    <span>{ getTimeUnit(index) }</span>
                   </div>
                 )}
               </>
             ))}
           </div>
         ) : (
-          <div class="count-down-text">{newTimeFormat.value}</div>
+          <div class="count-down-text">{ newTimeFormat.value }</div>
         )}
       </div>
     );

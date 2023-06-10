@@ -7,7 +7,7 @@
   "type": "module",
   "main": "./dist/vue-turn-clock.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": ["dist", "example"],
   "workspaces": [
     "packages/*"
   ],
