@@ -18,7 +18,7 @@ export default defineConfig({
     lib: {
       name: 'index',
       entry: resolve(__dirname, 'packages/index.ts'),
-      formats: ['es', 'umd'],
+      formats: ['es', 'umd', 'cjs'],
       fileName: format => `index.${format}.js`,
     },
     cssCodeSplit: true,
