@@ -1,11 +1,3 @@
-/*
- * @Author: limit
- * @Date: 2023-06-06 14:58:13
- * @LastEditTime: 2023-06-08 13:40:10
- * @LastEditors: limit
- * @FilePath: \vue3-demo\src\components\count-clock\util.ts
- * @Description: 由limit创建！
- */
 export type DateParams = Date | string | number;
 export type TimeStackDesc = {
   day: string;
@@ -18,12 +10,14 @@ export type TimeStackDesc = {
 /**
  ** 将传入的时间计算出距离当前时间转化为几天几时几分几秒
  * @param target DateParams 要计算的目标时间
+ * @param current DateParams 要计算的当前时间
  * @returns TimeStackDesc 转换后的对象
  */
-export const getTimeCountDown = (target?: DateParams) => {
+export const getTimeCountDown = (target?: DateParams, current?: DateParams) => {
   const timeStack = {} as TimeStackDesc;
-  const targetTime = +new Date(target ?? Date.now());
-  const currentTime = +new Date();
+  const now = Date.now();
+  const targetTime = +new Date(target ?? now);
+  const currentTime = +new Date(current ?? now);
   let diff = (targetTime + 1000 - currentTime) / 1000;
   if (targetTime < currentTime) diff = (currentTime - targetTime) / 1000;
   if (!target) {

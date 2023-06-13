@@ -8,6 +8,10 @@ import './style.less';
 export default defineComponent({
   props: {
     endTime: [Date, Number, String], // 倒计时的时间值
+    startTime: {
+      type: [Date, Number, String],
+      default: Date.now()
+    }, // 设置系统当前时间
     formatter: String, // 日期格式，仅theme为text时生效
     units: {
       // 时间单位，显示在中间的文字
@@ -25,6 +29,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const { endTime, units, theme, formatter } = toRefs(props);
     const timer = ref<number>();
+    const currentTime = ref(props.startTime);
     const newTimeFormat = ref<string>(); // 仅显示时间格式的时间
     const timeArr = ref<Array<string>>(
       theme.value === 'combine'
@@ -50,9 +55,9 @@ export default defineComponent({
     const play = () => {
       clearInterval(timer.value);
       timer.value = window.setInterval(() => {
-        if (theme.value === 'text' && !props.endTime) newTimeFormat.value = formatDate(formatter?.value);
+        if (theme.value === 'text' && !props.endTime) newTimeFormat.value = formatDate(formatter?.value, currentTime.value);
         else {
-          const timeResult = getTimeCountDown(endTime?.value);
+          const timeResult = getTimeCountDown(endTime?.value, currentTime.value);
           const timeKeys = ['second', 'min', 'hour', 'day'] as Array<
             keyof TimeStackDesc
           >;
@@ -70,6 +75,7 @@ export default defineComponent({
             emit('over');
           }
         }
+        currentTime.value = +new Date(currentTime.value) + 1000;
       }, 1000);
     };
 

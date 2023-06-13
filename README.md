@@ -26,12 +26,13 @@ import TurnClock from 'vue-turn-clock';
 ```
 
 ### 参数配置
-| 名称 | 类型 | 默认 | 说明 |
-| -- | -- | -- | -- |
-| endTime | Date/Number/String | -- | 需要倒计时的时间，可以是Date对象，也可以是时间戳，亦可是一个可被转换的时间字符串 |
+| 名称        | 类型 | 默认 | 说明 |
+|-----------| -- | -- |------------------------------------------------------------------------------------|
+| startTime | Date/Number/String | Date.now() | 需要设置当前的初始化系统时间，可以是Date对象，也可以是时间戳，亦可是一个可被转换的时间字符串，主要用来防止用户修改电脑时间，设置初始化服务器时间 |
+| endTime   | Date/Number/String | -- | 需要倒计时的时间，可以是Date对象，也可以是时间戳，亦可是一个可被转换的时间字符串 |
 | formatter | String | YYYY-MM-DD HH:mm:ss | 当仅显示日期格式时，可限制显示的日期格式，可选的字符格式：['YYYY', 'MM', 'DD', 'HH', 'mm', 'ss']，必须是这些其中的，区分大小写 |
-| units | String[] | [':', ':', ':', ''] | 要给每个时间层级后面添加的字符 |
-| theme | combine/separate/text | combine | 要展示的样式，`combine` :每个层级的数字合并显示，`separate` :每个层级的数字单独显示，`text` :当做纯文本格式显示
+| units     | String[] | [':', ':', ':', ''] | 要给每个时间层级后面添加的字符 |
+| theme     | combine/separate/text | combine | 要展示的样式，`combine` :每个层级的数字合并显示，`separate` :每个层级的数字单独显示，`text` :当做纯文本格式显示 |
 
 ### 事件
 | 事件名 | 说明 | 类型 |
