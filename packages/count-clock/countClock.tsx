@@ -22,6 +22,8 @@ export default defineComponent({
       type: String as PropType<'combine' | 'separate' | 'text'>,
       default: 'combine',
     },
+    color: String, // 文字颜色
+    bgColor: String, // 卡片的背景颜色
   },
   emits: {
     over: () => null,
@@ -79,6 +81,13 @@ export default defineComponent({
       }, 1000);
     };
 
+    // 获取单位的颜色
+    const getUnitColor = (): { color: string } | undefined => {
+      if (theme.value === 'text')
+        return props.color ? { color: props.color } : undefined;
+      return props.bgColor ? { color: props.bgColor } : undefined;
+    }
+
     onMounted(() => {
       play();
     });
@@ -86,21 +95,25 @@ export default defineComponent({
     return () => (
       <div class="count-clock-container">
         {theme.value !== 'text' || endTime.value ? (
-          <div class="count-down-view">
+          <div
+            class={{'count-down-view': true, 'count-down-view--text': theme.value === 'text'}}
+            style={props.color && { color: props.color }}
+          >
             {timeArr.value.map((time, index) => (
               <>
                 {theme.value !== 'text' ? (
                   <ClockItem
                     current={time}
+                    bgColor={props.bgColor}
                     single={theme.value === 'separate'}
                   />
                 ) : (
-                  <div class="count-down-text">
+                  <div class="count-down-text" style={props.color && { color: props.color }}>
                     { time }
                   </div>
                 )}
                 {hasTimeUnit(index) && getTimeUnit(index) && (
-                  <div class="count-clock-time-unit">
+                  <div class="count-clock-time-unit" style={getUnitColor()}>
                     <span>{ getTimeUnit(index) }</span>
                   </div>
                 )}
@@ -108,7 +121,7 @@ export default defineComponent({
             ))}
           </div>
         ) : (
-          <div class="count-down-text">{ newTimeFormat.value }</div>
+          <div class="count-down-text" style={props.color && { color: props.color }}>{ newTimeFormat.value }</div>
         )}
       </div>
     );

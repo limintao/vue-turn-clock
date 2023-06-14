@@ -33,6 +33,8 @@ import TurnClock from 'vue-turn-clock';
 | formatter | String | YYYY-MM-DD HH:mm:ss | 当仅显示日期格式时，可限制显示的日期格式，可选的字符格式：['YYYY', 'MM', 'DD', 'HH', 'mm', 'ss']，必须是这些其中的，区分大小写 |
 | units     | String[] | [':', ':', ':', ''] | 要给每个时间层级后面添加的字符 |
 | theme     | combine/separate/text | combine | 要展示的样式，`combine` :每个层级的数字合并显示，`separate` :每个层级的数字单独显示，`text` :当做纯文本格式显示 |
+| color     | String | -- | 数字的颜色 |
+| bgColor   | String | -- | 卡片的背景色和分隔符的颜色，一般分隔符和卡片背景是一个颜色，如需设置不同颜色请自行用样式覆盖 |
 
 ### 事件
 | 事件名 | 说明 | 类型 |
@@ -44,8 +46,8 @@ import TurnClock from 'vue-turn-clock';
 | -- | -- |
 | ```<TurnClock />``` | ![screenshot1](./example/01.gif) |
 | ```<TurnClock theme="separate" />``` | ![screenshot2](./example/02.gif) |
-| ```<TurnClock endTime="2023-06-20" theme="combine" />``` | ![screenshot3](./example/03.gif) |
-| ```<TurnClock :endTime="new Date('2023-06-20 12:00:00')" theme="separate" />``` | ![screenshot4](./example/04.gif) |
+| ```<TurnClock endTime="2023-06-20" theme="combine" bgColor="rgb(35, 45, 55)" />``` | ![screenshot3](./example/03.gif) |
+| ```<TurnClock :endTime="new Date('2023-06-20 12:00:00')" bgColor="rgb(35, 45, 55)" theme="separate" />``` | ![screenshot4](./example/04.gif) |
 | ```<TurnClock theme='text' />``` | ![screenshot5](./example/05.gif) |
 | ```<TurnClock theme='text' formatter="YYYY年MM月DD日 HH点mm分ss秒" />``` | ![screenshot6](./example/06.gif) |
 | ```<TurnClock theme="text" :units="['天', '时', '分', '秒']" endTime="2023-06-18 12:00:00" />``` | ![screenshot7](./example/07.gif) |
