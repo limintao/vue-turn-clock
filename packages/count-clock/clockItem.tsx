@@ -15,7 +15,7 @@ export default defineComponent({
   },
   setup(props) {
     const { current, single } = toRefs(props);
-    const prevNumber = ref<number | string>(0);
+    const prevNumber = ref<number | string>(props.current);
     const isAnimate = ref(false);
 
     // 动画结束事件

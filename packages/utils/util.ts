@@ -19,7 +19,6 @@ export const getTimeCountDown = (target?: DateParams, current?: DateParams) => {
   const targetTime = +new Date(target ?? now);
   const currentTime = +new Date(current ?? now);
   let diff = (targetTime + 1000 - currentTime) / 1000;
-  if (targetTime < currentTime) diff = (currentTime - targetTime) / 1000;
   if (!target) {
     timeStack.day = formatDate('DD');
     timeStack.hour = formatDate('HH');
@@ -29,6 +28,7 @@ export const getTimeCountDown = (target?: DateParams, current?: DateParams) => {
     return timeStack;
   }
   timeStack.diff = diff;
+  diff = Math.abs(diff);
   timeStack.day = String(Math.floor(diff / 86400)).padStart(2, '0');
   diff %= 86400;
   timeStack.hour = String(Math.floor(diff / 3600)).padStart(2, '0');
