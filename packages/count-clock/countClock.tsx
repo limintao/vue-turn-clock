@@ -30,7 +30,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { endTime, units, theme, formatter } = toRefs(props);
-    const timer = ref<number>();
+    const timer = ref<number>(); // 定时器
     const currentTime = ref(props.startTime);
     const newTimeFormat = ref<string>(); // 仅显示时间格式的时间
     const timeArr = ref<Array<string>>(
@@ -52,33 +52,52 @@ export default defineComponent({
     if (units?.value?.length > 4) units.value = units.value.slice(-4);
 
     /**
+     ** 设置时间
+     */
+    const setCurrentTime = () => {
+      // 检查主题是否为文本且没有设置结束时间
+      // 格式化当前时间并更新新的时间格式
+      if (theme.value === 'text' && !props.endTime) newTimeFormat.value = formatDate(formatter?.value, currentTime.value);
+      else {
+        // 获取倒计时结果
+        const timeResult = getTimeCountDown(endTime?.value, currentTime.value);
+        // 定义时间单位的顺序
+        const timeKeys = ['second', 'min', 'hour', 'day'] as Array<
+          keyof TimeStackDesc
+        >;
+        // 存储时间单位的数组
+        const arr: Array<string> = [];
+        // 遍历时间单位
+        units.value.map((_key, index) => {
+          // 计算反向索引
+          const reverseIndex = units.value.length - (index + 1);
+          // 如果主题为组合，则将时间单位直接添加到数组中
+          if (theme.value === 'combine') return arr.push(timeResult[timeKeys[reverseIndex]] as string);
+          // 如果主题不是组合，则将时间单位拆分为单个字符，并添加到数组中
+          return arr.push(
+              ...(timeResult[timeKeys[reverseIndex]] as string).split('')
+            );
+        });
+        // 更新时间数组
+        timeArr.value = arr;
+        // 如果倒计时已结束，清除定时器并触发事件
+        if (timeResult.diff <= 0) {
+          clearInterval(timer.value);
+          emit('over');
+        }
+      }
+      // 更新当前时间
+      currentTime.value = +new Date(currentTime.value) + 1000;
+      // 返回函数本身
+      return setCurrentTime;
+    };
+
+    /**
      * 开始倒计时动画
      */
     const play = () => {
-      clearInterval(timer.value);
-      timer.value = window.setInterval(() => {
-        if (theme.value === 'text' && !props.endTime) newTimeFormat.value = formatDate(formatter?.value, currentTime.value);
-        else {
-          const timeResult = getTimeCountDown(endTime?.value, currentTime.value);
-          const timeKeys = ['second', 'min', 'hour', 'day'] as Array<
-            keyof TimeStackDesc
-          >;
-          const arr: Array<string> = [];
-          units.value.map((_key, index) => {
-            const reverseIndex = units.value.length - (index + 1);
-            if (theme.value === 'combine') return arr.push(timeResult[timeKeys[reverseIndex]] as string);
-            return arr.push(
-                ...(timeResult[timeKeys[reverseIndex]] as string).split('')
-              );
-          });
-          timeArr.value = arr;
-          if (timeResult.diff <= 0) {
-            clearInterval(timer.value);
-            emit('over');
-          }
-        }
-        currentTime.value = +new Date(currentTime.value) + 1000;
-      }, 1000);
+      timer.value && clearInterval(timer.value);
+      timer.value = window.setInterval(setCurrentTime(), 1000);
     };
 
     // 获取单位的颜色
@@ -104,6 +123,7 @@ export default defineComponent({
                 {theme.value !== 'text' ? (
                   <ClockItem
                     current={time}
+                    key={time}
                     bgColor={props.bgColor}
                     single={theme.value === 'separate'}
                   />
