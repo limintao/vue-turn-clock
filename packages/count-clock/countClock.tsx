@@ -6,6 +6,7 @@ import ClockItem from './clockItem';
 import './style.less';
 
 export default defineComponent({
+  name: 'TurnClock',
   props: {
     endTime: [Date, Number, String], // 倒计时的时间值
     startTime: {
