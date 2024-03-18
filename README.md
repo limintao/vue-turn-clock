@@ -1,8 +1,8 @@
-# vue-turn-clock  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/limintao/vue-turn-clock/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/vue-turn-clock.svg?style=flat)](https://www.npmjs.com/package/vue-turn-clock) [![npm](https://img.shields.io/npm/v/vue-turn-clock.svg)](https://www.npmjs.com/package/vue-turn-clock) [![npm](https://img.shields.io/npm/dt/vue-turn-clock.svg)](https://www.npmjs.com/package/vue-turn-clock)
+# vue-turn-clock  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/limintao/vue-turn-clock/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/vue-turn-clock.svg?style=flat)](https://www.npmjs.com/package/vue-turn-clock) [![npm](https://img.shields.io/npm/dt/vue-turn-clock.svg)](https://www.npmjs.com/package/vue-turn-clock)
 
 这是一个简单的翻页倒计时组件，也可以是展示当前时间！
 
-- 💪 Vue 3 组合式 API
+- 💪 支持 Vue 3 组合式 API
 - 🔥 使用 TypeScript 编写
 
 ### 安装

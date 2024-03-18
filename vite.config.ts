@@ -15,10 +15,10 @@ export default defineConfig({
   resolve: { dedupe: ['vue'] },
   build: {
     outDir: 'lib',
+    target: 'es6',
     lib: {
       name: 'index',
       entry: resolve(__dirname, 'packages/index.ts'),
-      formats: ['es', 'umd', 'cjs'],
       fileName: format => `index.${format}.js`,
     },
     cssCodeSplit: true,

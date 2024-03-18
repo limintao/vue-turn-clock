@@ -1,7 +1,7 @@
 {
   "name": "vue-turn-clock",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "li min tao<https://github.com/limintao>",
   "license": "MIT",
   "type": "module",
